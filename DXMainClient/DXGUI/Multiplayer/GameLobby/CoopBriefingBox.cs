@@ -12,7 +12,7 @@ namespace DTAClient.DXGUI.Multiplayer.GameLobby
     class CoopBriefingBox : XNAPanel
     {
         private const int MARGIN = 12;
-        private const float ALPHA_RATE = 0.4f;
+        private const float ALPHA_RATE = 0.2f;
 
         public CoopBriefingBox(WindowManager windowManager) : base(windowManager)
         {
@@ -22,18 +22,17 @@ namespace DTAClient.DXGUI.Multiplayer.GameLobby
         int fontIndex = 3;
 
         private bool isVisible = true;
+        private float alpha = 0f;
 
         public override void Initialize()
         {
             Name = "CoopBriefingBox";
-            //DrawMode = ControlDrawMode.UNIQUE_RENDER_TARGET;
+            DrawMode = ControlDrawMode.UNIQUE_RENDER_TARGET;
             ClientRectangle = new Rectangle(0, 0, 400, 300);
             PanelBackgroundDrawMode = PanelBackgroundImageDrawMode.STRETCHED;
-            BackgroundTexture = AssetLoader.CreateTexture(new Color(0, 0, 0, 224), 2, 2);
-            
-            InputEnabled = false;
+            BackgroundTexture = AssetLoader.CreateTexture(new Color(0, 0, 0, 196), 2, 2);
 
-            AlphaRate = ALPHA_RATE;
+            InputEnabled = false;
 
             base.Initialize();
 
@@ -47,7 +46,7 @@ namespace DTAClient.DXGUI.Multiplayer.GameLobby
 
         public void SetAlpha(float alpha)
         {
-            Alpha = alpha;
+            this.alpha = alpha;
         }
 
         public void SetText(string text)
@@ -63,11 +62,11 @@ namespace DTAClient.DXGUI.Multiplayer.GameLobby
         {
             if (isVisible)
             {
-                AlphaRate = ALPHA_RATE;
+                alpha = Math.Min(alpha + AlphaRate, 1.0f);
             }
             else
             {
-                AlphaRate = -ALPHA_RATE;
+                alpha = Math.Max(alpha - AlphaRate, 0.0f);
             }
 
             base.Update(gameTime);
@@ -77,11 +76,12 @@ namespace DTAClient.DXGUI.Multiplayer.GameLobby
         {
             //base.Draw(gameTime);
 
-            FillControlArea(new Color(0, 0, 0, (int)(224 * Alpha)));
-            DrawRectangle(new Rectangle(0, 0, Width, Height), GetColorWithAlpha(BorderColor));
-            DrawStringWithShadow(text, fontIndex,
-                new Vector2(MARGIN, MARGIN),
-                GetColorWithAlpha(UISettings.ActiveSettings.AltColor));
+            FillControlArea(new Color(0, 0, 0, 224));
+            DrawRectangle(new Rectangle(0, 0, Width, Height), BorderColor);
+
+            Renderer.DrawStringWithShadow(text, fontIndex,
+                new Vector2(X + MARGIN, Y + MARGIN),
+                UISettings.ActiveSettings.AltColor);
         }
     }
 }
