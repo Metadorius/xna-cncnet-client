@@ -138,17 +138,24 @@ namespace DTAClient.DXGUI.Multiplayer.GameLobby
 
             contextMenu.ClientRectangle = new Rectangle(0, 0, 150, 2);
             AddChild(contextMenu);
-            contextMenu.Disable();
+            contextMenu.Enabled = false;
+            contextMenu.Visible = false;
 
             briefingBox = new CoopBriefingBox(WindowManager);
             AddChild(briefingBox);
             briefingBox.Disable();
+
+            ClientRectangleUpdated += MapPreviewBox_ClientRectangleUpdated;
 
             sndClickSound = new EnhancedSoundEffect("button.wav");
 
             sndDropdownSound = new EnhancedSoundEffect("dropdown.wav");
 
             base.Initialize();
+        }
+
+        private void MapPreviewBox_ClientRectangleUpdated(object sender, EventArgs e)
+        {
         }
 
         private void ContextMenu_OptionSelected(int index)
@@ -234,6 +241,7 @@ namespace DTAClient.DXGUI.Multiplayer.GameLobby
             if (y + contextMenu.Height > Height)
                 y = Height - contextMenu.Height;
 
+            contextMenu.ClientRectangle = new Rectangle(x, y, contextMenu.Width, contextMenu.Height);
             contextMenu.Tag = indicator.Tag;
 
             int index = 0;
@@ -244,7 +252,8 @@ namespace DTAClient.DXGUI.Multiplayer.GameLobby
                 index++;
             }
 
-            contextMenu.Open(new Point(x, y));
+            contextMenu.Enabled = true;
+            contextMenu.Visible = true;
         }
 
         private void Indicator_RightClick(object sender, EventArgs e)
@@ -405,12 +414,11 @@ namespace DTAClient.DXGUI.Multiplayer.GameLobby
                     text = teamIds[pInfo.TeamId] + text;
                 }
 
-                int index = i;
                 XNAContextMenuItem item = new XNAContextMenuItem()
                 {
                     Text = id + ". " + text,
                     TextColor = pInfo.ColorId > 0 ? mpColors[pInfo.ColorId - 1].XnaColor : Color.White,
-                    SelectAction = () => ContextMenu_OptionSelected(index),
+                    SelectAction = () => ContextMenu_OptionSelected(i),
                 };
                 contextMenu.AddItem(item);
 
