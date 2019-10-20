@@ -87,7 +87,7 @@ namespace DTAClient.DXGUI.Multiplayer.GameLobby
                 "View tunnel server information", false, PrintTunnelServerInformation));
             AddChatBoxCommand(new ChatBoxCommand("CHANGETUNNEL",
                 "Change the used CnCNet tunnel server (game host only)",
-                true, (s) => ShowTunnelSelectionWindow("Select tunnel server:")));
+                true, ShowTunnelSelectionWindow));
         }
 
         public event EventHandler GameLeft;
@@ -240,9 +240,9 @@ namespace DTAClient.DXGUI.Multiplayer.GameLobby
                 $"(Players: {tunnel.Clients}/{tunnel.MaxClients}) (Official: {tunnel.Official})");
         }
 
-        private void ShowTunnelSelectionWindow(string description)
+        private void ShowTunnelSelectionWindow(string s)
         {
-            tunnelSelectionWindow.Open(description,
+            tunnelSelectionWindow.Open("Select tunnel server:",
                 tunnel.Address);
             tunnelSelectionWindow.TunnelSelected += TunnelSelectionWindow_TunnelSelected;
         }
@@ -501,12 +501,8 @@ namespace DTAClient.DXGUI.Multiplayer.GameLobby
 
                 if (playerPorts.Count < Players.Count)
                 {
-                    ShowTunnelSelectionWindow("An error occured while contacting " +
-                        "the CnCNet tunnel server." + Environment.NewLine + 
-                        "Try picking a different tunnel server:");
-                    AddNotice("An error occured while contacting the specified CnCNet " +
-                        "tunnel server. Please try using a different tunnel server " +
-                        "(accessible by typing /CHANGETUNNEL in the chat box).", ERROR_MESSAGE_COLOR);
+                    AddNotice("An error occured while contacting the specified CnCNet tunnel server. Please try using a different tunnel server " +
+                        "(accessible through the advanced options in the game creation window).", ERROR_MESSAGE_COLOR);
                     return;
                 }
 
