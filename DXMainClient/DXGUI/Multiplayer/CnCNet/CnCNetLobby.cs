@@ -213,7 +213,7 @@ namespace DTAClient.DXGUI.Multiplayer.CnCNet
             int selectedColor = UserINISettings.Instance.ChatColor;
 
             ddColor.SelectedIndex = selectedColor >= ddColor.Items.Count || selectedColor < 0
-                ? ClientConfiguration.Instance.DefaultPersonalChatColorIndex:
+                ? ClientConfiguration.Instance.DefaultPersonalChatColorIndex :
                 selectedColor;
             SetChatColor();
             ddColor.SelectedIndexChanged += DdColor_SelectedIndexChanged;
@@ -370,8 +370,8 @@ namespace DTAClient.DXGUI.Multiplayer.CnCNet
             gameCreationPanel.Hide();
 
             connectionManager.MainChannel.AddMessage(new ChatMessage(Color.White, Renderer.GetSafeString(
-                    "*** DTA CnCNet Client version " +
-                    System.Windows.Forms.Application.ProductVersion + " ***", lbChatMessages.FontIndex)));
+                string.Format("*** DTA CnCNet Client version {0} (No XNAUI-v2) ***", System.Windows.Forms.Application.ProductVersion),
+                lbChatMessages.FontIndex)));
 
             connectionManager.BannedFromChannel += ConnectionManager_BannedFromChannel;
 
@@ -982,7 +982,7 @@ namespace DTAClient.DXGUI.Multiplayer.CnCNet
 
             if (chatChannelMissing || broadcastChannelMissing)
                 XNAMessageBox.Show(WindowManager, "Error joining channels", "Following problems were encountered " +
-                    "when attempting to join channels for the currently set local game " + localGameID +":" + Environment.NewLine + Environment.NewLine +
+                    "when attempting to join channels for the currently set local game " + localGameID + ":" + Environment.NewLine + Environment.NewLine +
                     (chatChannelMissing ? "- Chat channel info could not be found. No chat channel will be available for this game in Current Channel dropdown." +
                     Environment.NewLine + Environment.NewLine : "") +
                     (broadcastChannelMissing ? "- Broadcast channel info could not be found. Creating & hosting games will be disabled." +
