@@ -477,7 +477,10 @@ namespace DTAClient.DXGUI.Multiplayer.GameLobby
             if (DrawBorders)
                 DrawPanelBorders();
 
+            Renderer.PushSettings(new SpriteBatchSettings(SpriteSortMode.Deferred,
+                BlendState.NonPremultiplied, null));
             DrawChildren(gameTime);
+            Renderer.PopSettings();
         }
     }
 
