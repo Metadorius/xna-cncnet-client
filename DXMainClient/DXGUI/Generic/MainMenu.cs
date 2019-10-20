@@ -98,7 +98,7 @@ namespace DTAClient.DXGUI.Generic
             btnNewCampaign.Name = "btnNewCampaign";
             btnNewCampaign.IdleTexture = AssetLoader.LoadTexture("MainMenu\\campaign.png");
             btnNewCampaign.HoverTexture = AssetLoader.LoadTexture("MainMenu\\campaign_c.png");
-            btnNewCampaign.HoverSoundEffect = new EnhancedSoundEffect("MainMenu\\button.wav");
+            btnNewCampaign.HoverSoundEffect = AssetLoader.LoadSound("MainMenu\\button.wav");
             btnNewCampaign.LeftClick += BtnNewCampaign_LeftClick;
             btnNewCampaign.HotKey = Keys.C;
 
@@ -106,7 +106,7 @@ namespace DTAClient.DXGUI.Generic
             btnLoadGame.Name = "btnLoadGame";
             btnLoadGame.IdleTexture = AssetLoader.LoadTexture("MainMenu\\loadmission.png");
             btnLoadGame.HoverTexture = AssetLoader.LoadTexture("MainMenu\\loadmission_c.png");
-            btnLoadGame.HoverSoundEffect = new EnhancedSoundEffect("MainMenu\\button.wav");
+            btnLoadGame.HoverSoundEffect = AssetLoader.LoadSound("MainMenu\\button.wav");
             btnLoadGame.LeftClick += BtnLoadGame_LeftClick;
             btnLoadGame.HotKey = Keys.L;
 
@@ -114,7 +114,7 @@ namespace DTAClient.DXGUI.Generic
             btnSkirmish.Name = "btnSkirmish";
             btnSkirmish.IdleTexture = AssetLoader.LoadTexture("MainMenu\\skirmish.png");
             btnSkirmish.HoverTexture = AssetLoader.LoadTexture("MainMenu\\skirmish_c.png");
-            btnSkirmish.HoverSoundEffect = new EnhancedSoundEffect("MainMenu\\button.wav");
+            btnSkirmish.HoverSoundEffect = AssetLoader.LoadSound("MainMenu\\button.wav");
             btnSkirmish.LeftClick += BtnSkirmish_LeftClick;
             btnSkirmish.HotKey = Keys.S;
 
@@ -122,7 +122,7 @@ namespace DTAClient.DXGUI.Generic
             btnCnCNet.Name = "btnCnCNet";
             btnCnCNet.IdleTexture = AssetLoader.LoadTexture("MainMenu\\cncnet.png");
             btnCnCNet.HoverTexture = AssetLoader.LoadTexture("MainMenu\\cncnet_c.png");
-            btnCnCNet.HoverSoundEffect = new EnhancedSoundEffect("MainMenu\\button.wav");
+            btnCnCNet.HoverSoundEffect = AssetLoader.LoadSound("MainMenu\\button.wav");
             btnCnCNet.LeftClick += BtnCnCNet_LeftClick;
             btnCnCNet.HotKey = Keys.M;
 
@@ -130,7 +130,7 @@ namespace DTAClient.DXGUI.Generic
             btnLan.Name = "btnLan";
             btnLan.IdleTexture = AssetLoader.LoadTexture("MainMenu\\lan.png");
             btnLan.HoverTexture = AssetLoader.LoadTexture("MainMenu\\lan_c.png");
-            btnLan.HoverSoundEffect = new EnhancedSoundEffect("MainMenu\\button.wav");
+            btnLan.HoverSoundEffect = AssetLoader.LoadSound("MainMenu\\button.wav");
             btnLan.LeftClick += BtnLan_LeftClick;
             btnLan.HotKey = Keys.N;
 
@@ -138,7 +138,7 @@ namespace DTAClient.DXGUI.Generic
             btnOptions.Name = "btnOptions";
             btnOptions.IdleTexture = AssetLoader.LoadTexture("MainMenu\\options.png");
             btnOptions.HoverTexture = AssetLoader.LoadTexture("MainMenu\\options_c.png");
-            btnOptions.HoverSoundEffect = new EnhancedSoundEffect("MainMenu\\button.wav");
+            btnOptions.HoverSoundEffect = AssetLoader.LoadSound("MainMenu\\button.wav");
             btnOptions.LeftClick += BtnOptions_LeftClick;
             btnOptions.HotKey = Keys.O;
 
@@ -146,7 +146,7 @@ namespace DTAClient.DXGUI.Generic
             btnMapEditor.Name = "btnMapEditor";
             btnMapEditor.IdleTexture = AssetLoader.LoadTexture("MainMenu\\mapeditor.png");
             btnMapEditor.HoverTexture = AssetLoader.LoadTexture("MainMenu\\mapeditor_c.png");
-            btnMapEditor.HoverSoundEffect = new EnhancedSoundEffect("MainMenu\\button.wav");
+            btnMapEditor.HoverSoundEffect = AssetLoader.LoadSound("MainMenu\\button.wav");
             btnMapEditor.LeftClick += BtnMapEditor_LeftClick;
             btnMapEditor.HotKey = Keys.E;
 
@@ -154,7 +154,7 @@ namespace DTAClient.DXGUI.Generic
             btnStatistics.Name = "btnStatistics";
             btnStatistics.IdleTexture = AssetLoader.LoadTexture("MainMenu\\statistics.png");
             btnStatistics.HoverTexture = AssetLoader.LoadTexture("MainMenu\\statistics_c.png");
-            btnStatistics.HoverSoundEffect = new EnhancedSoundEffect("MainMenu\\button.wav");
+            btnStatistics.HoverSoundEffect = AssetLoader.LoadSound("MainMenu\\button.wav");
             btnStatistics.LeftClick += BtnStatistics_LeftClick;
             btnStatistics.HotKey = Keys.T;
 
@@ -162,7 +162,7 @@ namespace DTAClient.DXGUI.Generic
             btnCredits.Name = "btnCredits";
             btnCredits.IdleTexture = AssetLoader.LoadTexture("MainMenu\\credits.png");
             btnCredits.HoverTexture = AssetLoader.LoadTexture("MainMenu\\credits_c.png");
-            btnCredits.HoverSoundEffect = new EnhancedSoundEffect("MainMenu\\button.wav");
+            btnCredits.HoverSoundEffect = AssetLoader.LoadSound("MainMenu\\button.wav");
             btnCredits.LeftClick += BtnCredits_LeftClick;
             btnCredits.HotKey = Keys.R;
 
@@ -170,7 +170,7 @@ namespace DTAClient.DXGUI.Generic
             btnExtras.Name = "btnExtras";
             btnExtras.IdleTexture = AssetLoader.LoadTexture("MainMenu\\extras.png");
             btnExtras.HoverTexture = AssetLoader.LoadTexture("MainMenu\\extras_c.png");
-            btnExtras.HoverSoundEffect = new EnhancedSoundEffect("MainMenu\\button.wav");
+            btnExtras.HoverSoundEffect = AssetLoader.LoadSound("MainMenu\\button.wav");
             btnExtras.LeftClick += BtnExtras_LeftClick;
             btnExtras.HotKey = Keys.E;
 
@@ -178,7 +178,7 @@ namespace DTAClient.DXGUI.Generic
             btnExit.Name = "btnExit";
             btnExit.IdleTexture = AssetLoader.LoadTexture("MainMenu\\exitgame.png");
             btnExit.HoverTexture = AssetLoader.LoadTexture("MainMenu\\exitgame_c.png");
-            btnExit.HoverSoundEffect = new EnhancedSoundEffect("MainMenu\\button.wav");
+            btnExit.HoverSoundEffect = AssetLoader.LoadSound("MainMenu\\button.wav");
             btnExit.LeftClick += BtnExit_LeftClick;
 
             XNALabel lblCnCNetStatus = new XNALabel(WindowManager);
@@ -745,6 +745,7 @@ namespace DTAClient.DXGUI.Generic
             if (themeSong != null && UserINISettings.Instance.PlayMainMenuMusic)
             {
                 isMusicFading = false;
+                MediaPlayer.Volume = AudioMaster.GetVolume();
                 MediaPlayer.IsRepeating = true;
                 MediaPlayer.Volume = musicVolume;
                 try
@@ -769,7 +770,7 @@ namespace DTAClient.DXGUI.Generic
                 return;
 
             // Fade during 1 second
-            float step = SoundPlayer.Volume * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            float step = AudioMaster.GetVolume() * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             if (MediaPlayer.Volume > step)
                 MediaPlayer.Volume -= step;
