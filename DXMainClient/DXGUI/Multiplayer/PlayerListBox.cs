@@ -92,7 +92,7 @@ namespace DTAClient.DXGUI.Multiplayer
                         GetColorWithAlpha(FocusColor));
                 }
 
-                Renderer.DrawTexture(lbItem.Texture, new Rectangle(windowRectangle.X + x, windowRectangle.Y + height,
+                Renderer.DrawTexture(user.IsAdmin ? adminGameIcon : lbItem.Texture, new Rectangle(windowRectangle.X + x, windowRectangle.Y + height,
                         adminGameIcon.Width, adminGameIcon.Height), Color.White);
 
                 x += adminGameIcon.Width + margin;

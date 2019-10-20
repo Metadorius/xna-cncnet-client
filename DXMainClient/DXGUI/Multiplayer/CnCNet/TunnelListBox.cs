@@ -27,7 +27,7 @@ namespace DTAClient.DXGUI.Multiplayer.CnCNet
 
             Width = 466;
             Height = 200;
-            PanelBackgroundDrawMode = PanelBackgroundImageDrawMode.STRETCHED;
+            DrawMode = PanelBackgroundImageDrawMode.STRETCHED;
             BackgroundTexture = AssetLoader.CreateTexture(new Color(0, 0, 0, 128), 1, 1);
             AddColumn("Name", 230);
             AddColumn("Official", 70);

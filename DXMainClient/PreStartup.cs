@@ -63,7 +63,10 @@ namespace DTAClient
 
             // Log information about given startup params
             if (parameters.NoAudio)
+            {
+                AudioMaster.DisableSounds = true;
                 Logger.Log("Startup parameter: No audio");
+            }
 
             if (parameters.MultipleInstanceMode)
                 Logger.Log("Startup parameter: Allow multiple client instances");

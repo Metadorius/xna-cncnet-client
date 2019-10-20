@@ -36,8 +36,10 @@ namespace DTAClient.DXGUI.Multiplayer.GameLobby
 
         private void UpdateStarPosition()
         {
-            starDisplay.Y = (Height - starDisplay.Height) / 2;
-            starDisplay.X = (Width / 2) + (int)(Renderer.GetTextDimensions(Text, FontIndex).X / 2) + 3;
+            Rectangle windowRectangle = WindowRectangle();
+            int x = windowRectangle.X + (Width / 2) + (int)(Renderer.GetTextDimensions(Text, FontIndex).X / 2) + 4;
+            int y = windowRectangle.Y + (Height - starDisplay.Height) / 2;
+            starDisplay.ClientRectangle = new Rectangle(x, y, starDisplay.Width, starDisplay.Height);
         }
 
         public void SetRank(int rank)
@@ -68,7 +70,7 @@ namespace DTAClient.DXGUI.Multiplayer.GameLobby
 
         public override void Draw(GameTime gameTime)
         {
-            DrawTexture(rankTextures[Rank], Point.Zero, Color.White);
+            Renderer.DrawTexture(rankTextures[Rank], ClientRectangle, Color.White);
             base.Draw(gameTime);
         }
     }

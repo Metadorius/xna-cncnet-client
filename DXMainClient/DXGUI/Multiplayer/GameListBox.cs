@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using DTAClient.Domain.Multiplayer;
 using System.Linq;
 using ClientCore;
+using DTAClient.Domain.Multiplayer.CnCNet;
 
 namespace DTAClient.DXGUI.Multiplayer
 {
@@ -243,12 +244,12 @@ namespace DTAClient.DXGUI.Multiplayer
 
         public override void Draw(GameTime gameTime)
         {
+            DrawPanel();
+
             Rectangle windowRectangle = WindowRectangle();
 
             if (showGameInfo)
                 panelGameInformation.Draw(gameTime);
-
-            DrawPanel();
 
             int height = 2;
 
@@ -304,7 +305,7 @@ namespace DTAClient.DXGUI.Multiplayer
                 if (hostedGame.Passworded)
                 {
                     Renderer.DrawTexture(txPasswordedGame,
-                        new Rectangle(windowRectangle.Right - txPasswordedGame.Width - TextBorderDistance,
+                        new Rectangle(windowRectangle.Right - txPasswordedGame.Width - TextBorderDistance - (scrollBarDrawn ? ScrollBar.Width : 0),
                         windowRectangle.Y + height, txPasswordedGame.Width, txPasswordedGame.Height),
                         Color.White);
                 }
@@ -325,7 +326,7 @@ namespace DTAClient.DXGUI.Multiplayer
             if (DrawBorders)
                 DrawPanelBorders();
 
-            //DrawChildren(gameTime);
+            DrawChildren(gameTime);
         }
     }
 }

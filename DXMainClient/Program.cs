@@ -89,8 +89,7 @@ namespace DTAClient
                 switch (argument)
                 {
                     case "-NOAUDIO":
-                        // TODO fix
-                        throw new NotImplementedException("-NOAUDIO is currently not implemented, please run the client without it.");
+                        noAudio = true;
                         break;
                     case "-MULTIPLEINSTANCE":
                         multipleInstanceMode = true;

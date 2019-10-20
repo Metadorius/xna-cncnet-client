@@ -500,10 +500,10 @@ namespace DTAClient.DXGUI.Multiplayer.CnCNet
                     pmWindow.InitPM(ircUser.Name);
                     break;
                 case 1:
-                    cncnetUserData.ToggleFriend(ircUser.Name);
+                    ToggleFriend(ircUser.Name);
                     break;
                 case 2:
-                    cncnetUserData.ToggleIgnoreUser(ircUser.Ident);
+                    ToggleIgnoreUser(ircUser.Ident);
                     break;
             }
         }
