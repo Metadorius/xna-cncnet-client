@@ -12,7 +12,6 @@ namespace ClientGUI
     {
         public XNAWindowBase(WindowManager windowManager) : base(windowManager)
         {
-            PanelBackgroundDrawMode = PanelBackgroundImageDrawMode.TILED;
         }
 
         /// <summary>
