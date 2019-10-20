@@ -59,7 +59,7 @@ namespace DTAClient
             MainClientConstants.Initialize();
 
             Logger.Log("***Logfile for " + MainClientConstants.GAME_NAME_LONG + " client***");
-            Logger.Log("Client version: " + Application.ProductVersion);
+            Logger.Log("Client version: " + Application.ProductVersion + " (No XNAUI-v2)");
 
             // Log information about given startup params
             if (parameters.NoAudio)
