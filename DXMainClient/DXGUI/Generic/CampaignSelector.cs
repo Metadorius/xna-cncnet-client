@@ -66,6 +66,7 @@ namespace DTAClient.DXGUI.Generic
             lbCampaignList.ClientRectangle = new Rectangle(12, 
                 lblSelectCampaign.Bottom + 6, 300, 516);
             lbCampaignList.SelectedIndexChanged += LbCampaignList_SelectedIndexChanged;
+            lbCampaignList.DrawMode = ControlDrawMode.NORMAL;
 
             var lblMissionDescriptionHeader = new XNALabel(WindowManager);
             lblMissionDescriptionHeader.Name = "lblMissionDescriptionHeader";
