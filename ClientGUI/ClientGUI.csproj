@@ -136,7 +136,6 @@
     <Compile Include="ClientGUICreator.cs" />
     <Compile Include="ToolTip.cs" />
     <Compile Include="UIDesignConstants.cs" />
-    <Compile Include="XNAChatTextBox.cs" />
     <Compile Include="XNAClientButton.cs" />
     <Compile Include="DarkeningPanel.cs" />
     <Compile Include="XNAClientCheckBox.cs" />
