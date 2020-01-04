@@ -38,6 +38,7 @@ namespace ClientCore
             const string MULTIPLAYER = "MultiPlayer";
             const string OPTIONS = "Options";
             const string AUDIO = "Audio";
+            const string DEBUG = "Debug";
 #if YR || MO
             const string WINDOWED_MODE_KEY = "Video.Windowed";
             BackBufferInVRAM = new BoolSetting(iniFile, VIDEO, "VideoBackBuffer", false);
@@ -49,6 +50,7 @@ namespace ClientCore
             IngameScreenWidth = new IntSetting(iniFile, VIDEO, "ScreenWidth", 1024);
             IngameScreenHeight = new IntSetting(iniFile, VIDEO, "ScreenHeight", 768);
             ClientTheme = new StringSetting(iniFile, MULTIPLAYER, "Theme", string.Empty);
+            ClientTranslation = new StringSetting(iniFile, OPTIONS, "Translation", string.Empty);
             DetailLevel = new IntSetting(iniFile, OPTIONS, "DetailLevel", 2);
             Renderer = new StringSetting(iniFile, "Compatibility", "Renderer", string.Empty);
             WindowedMode = new BoolSetting(iniFile, VIDEO, WINDOWED_MODE_KEY, false);
@@ -103,6 +105,8 @@ namespace ClientCore
             ForceLowestDetailLevel = new BoolSetting(iniFile, VIDEO, "ForceLowestDetailLevel", false);
             MinimizeWindowsOnGameStart = new BoolSetting(iniFile, OPTIONS, "MinimizeWindowsOnGameStart", true);
             AutoRemoveUnderscoresFromName = new BoolSetting(iniFile, OPTIONS, "AutoRemoveUnderscoresFromName", true);
+
+            GenerateTranslationIni = new BoolSetting(iniFile, DEBUG, "GenerateTranslationIni", false);
         }
 
         public IniFile SettingsIni { get; private set; }
@@ -116,6 +120,7 @@ namespace ClientCore
         public IntSetting IngameScreenWidth { get; private set; }
         public IntSetting IngameScreenHeight { get; private set; }
         public StringSetting ClientTheme { get; private set; }
+        public StringSetting ClientTranslation { get; private set; }
         public IntSetting DetailLevel { get; private set; }
         public StringSetting Renderer { get; private set; }
         public BoolSetting WindowedMode { get; private set; }
@@ -197,6 +202,12 @@ namespace ClientCore
         public BoolSetting MinimizeWindowsOnGameStart { get; private set; }
 
         public BoolSetting AutoRemoveUnderscoresFromName { get; private set; }
+
+        /*********/
+        /* DEBUG */
+        /*********/
+
+        public BoolSetting GenerateTranslationIni { get; private set; }
 
         public bool IsGameFollowed(string gameName)
         {

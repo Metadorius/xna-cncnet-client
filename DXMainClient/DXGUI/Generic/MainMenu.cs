@@ -442,6 +442,9 @@ namespace DTAClient.DXGUI.Generic
                 }
             }
 
+            if (UserINISettings.Instance.GenerateTranslationIni)
+                Translation.Instance.GenerateTranslationIni();
+
             CheckIfFirstRun();
         }
 

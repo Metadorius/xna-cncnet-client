@@ -244,6 +244,14 @@ namespace ClientCore
             }
         }
 
+        public int TranslationCount
+        {
+            get
+            {
+                return clientDefinitionsIni.GetSectionKeys("Translations").Count;
+            }
+        }
+
         public string LocalGame
         {
             get
@@ -365,6 +373,28 @@ namespace ClientCore
                 if (parts[0] == themeName)
                     return parts[1];
             }
+
+            return null;
+        }
+
+        public string[] GetTranslationInfoFromIndex(int translationIndex) => clientDefinitionsIni.GetStringValue("Translations", translationIndex.ToString(), ",").Split(',');
+
+        /// <summary>
+        /// Returns the path for a translation, or null if the specified
+        /// translation name doesn't exist.
+        /// </summary>
+        /// <param name="translationName">The name of the translation.</param>
+        /// <returns>The path to the translation's INI.</returns>
+        public string GetTranslationPath(string translationName)
+        {
+            var translationSection = clientDefinitionsIni.GetSection("Translations");
+            if (translationSection != null)
+                foreach (var key in translationSection.Keys)
+                {
+                    string[] parts = key.Value.Split(',');
+                    if (parts[0] == translationName)
+                        return parts[1];
+                }
 
             return null;
         }
