@@ -303,6 +303,7 @@ namespace DTAClient.DXGUI.Multiplayer.GameLobby
                 chkBox.Name = chkName;
                 AddChild(chkBox);
                 chkBox.GetAttributes(GameOptionsIni);
+                chkBox.Text = Translation.Instance.GetTranslatedGameOption(chkName, chkBox.Text);
                 CheckBoxes.Add(chkBox);
                 chkBox.CheckedChanged += ChkBox_CheckedChanged;
             }
