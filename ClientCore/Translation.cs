@@ -2,24 +2,41 @@
 using Rampastring.Tools;
 using System.IO;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace ClientCore
 {
     public class Translation
     {
+        // Code-defined UI element texts and messages
+        private const string STATIC_STRINGS = "Static Strings";
+
+        // Dynamic (INI-defined) UI element texts
+        private const string INI_STRINGS = "INI Strings";
         private const string TEXTURES = "Textures";
-        private const string STRINGS = "Strings";
         private const string GAME_OPTIONS = "Game Options";
-        private const string SETTINGS = "Settings";
+        private const string GAME_MODES = "Game Modes";
+        private const string SIDES = "Sides";
+        private const string COLORS = "Colors";
+        private const string MISSION_NAMES = "Mission Names";
+        private const string MISSION_BRIEFINGS = "Mission Briefings";
+        private const string MAP_NAMES = "Map Names";
+        private const string MAP_BRIEFINGS = "Map Briefings";
+        private const string CUSTOM_SETTINGS = "Custom Settings";
+        private const string CUSTOM_COMPONENTS = "Custom Components";
+
+        #region Static strings
+
+
+
+        #endregion
 
         private static Translation _instance;
 
         private IniFile translationIni;
 
-        protected SortedDictionary<string, string> texturesDictionary = new SortedDictionary<string, string>();
-        protected SortedDictionary<string, string> stringsDictionary = new SortedDictionary<string, string>();
-        protected SortedDictionary<string, string> gameOptionsDictionary = new SortedDictionary<string, string>();
-        protected SortedDictionary<string, string> settingsDictionary = new SortedDictionary<string, string>();
+        protected Dictionary<string, SortedDictionary<string, string>> translationDictionary
+            = new Dictionary<string, SortedDictionary<string, string>>();
 
         protected Translation()
         {
@@ -29,6 +46,15 @@ namespace ClientCore
                 Logger.Log($"Translation: Couldn't find {filename} translation file");
 
             translationIni = new IniFile(ProgramConstants.GetBaseResourcePath() + filename);
+
+            //foreach (var field in this.GetType().GetFields(BindingFlags.NonPublic | BindingFlags.Static))
+            //    if (field.IsLiteral && !field.IsInitOnly && field.FieldType == typeof(string))
+            //        translationDictionary.Add((string)field.GetValue(this),
+            //                                  new SortedDictionary<string, string>());
+
+            foreach (string section in new string[] {INI_STRINGS, TEXTURES, GAME_OPTIONS, GAME_MODES, SIDES, COLORS,
+                MISSION_NAMES, MISSION_BRIEFINGS, MAP_NAMES, MAP_BRIEFINGS, CUSTOM_SETTINGS, CUSTOM_COMPONENTS})
+                translationDictionary.Add(section, new SortedDictionary<string, string>());
 
             LoadFromTranslationIni();
         }
@@ -49,70 +75,76 @@ namespace ClientCore
 
         private void LoadFromTranslationIni()
         {
-            if (translationIni.SectionExists(TEXTURES))
-                foreach (string key in translationIni.GetSectionKeys(TEXTURES))
-                    texturesDictionary[key] = translationIni.GetStringValue(TEXTURES, key, String.Empty);
+            // TODO add code-defined strings loading via reflection
 
-            if (translationIni.SectionExists(STRINGS))
-                foreach (string key in translationIni.GetSectionKeys(STRINGS))
-                    stringsDictionary[key] = translationIni.GetStringValue(STRINGS, key, String.Empty);
+            foreach (string section in translationDictionary.Keys)
+                if (translationIni.SectionExists(section))
+                    foreach (string key in translationIni.GetSectionKeys(section))
+                        translationDictionary[section][key] = translationIni.GetStringValue(section, key, String.Empty);
 
-            if (translationIni.SectionExists(GAME_OPTIONS))
-                foreach (string key in translationIni.GetSectionKeys(GAME_OPTIONS))
-                    gameOptionsDictionary[key] = translationIni.GetStringValue(GAME_OPTIONS, key, String.Empty);
-
-            if (translationIni.SectionExists(SETTINGS))
-                foreach (string key in translationIni.GetSectionKeys(SETTINGS))
-                    settingsDictionary[key] = translationIni.GetStringValue(SETTINGS, key, String.Empty);
         }
 
         public void GenerateTranslationIni()
         {
-            if (!translationIni.SectionExists(TEXTURES))
-                translationIni.AddSection(TEXTURES);
+            // TODO add code-defined strings writing via reflection
 
-            if (!translationIni.SectionExists(STRINGS))
-                translationIni.AddSection(STRINGS);
+            foreach (string section in translationDictionary.Keys)
+            {
+                if (!translationIni.SectionExists(section))
+                    translationIni.AddSection(section);
 
-            if (!translationIni.SectionExists(GAME_OPTIONS))
-                translationIni.AddSection(GAME_OPTIONS);
-
-            if (!translationIni.SectionExists(SETTINGS))
-                translationIni.AddSection(SETTINGS);
-
-
-            foreach (string key in texturesDictionary.Keys)
-                translationIni.SetStringValue(TEXTURES, key, texturesDictionary[key]);
-
-            foreach (string key in stringsDictionary.Keys)
-                translationIni.SetStringValue(STRINGS, key, stringsDictionary[key]);
-
-            foreach (string key in gameOptionsDictionary.Keys)
-                translationIni.SetStringValue(GAME_OPTIONS, key, gameOptionsDictionary[key]);
-
-            foreach (string key in settingsDictionary.Keys)
-                translationIni.SetStringValue(SETTINGS, key, settingsDictionary[key]);
+                foreach (string key in translationDictionary[section].Keys)
+                    translationIni.SetStringValue(section, key, translationDictionary[section][key]);
+            }
 
             translationIni.WriteIniFile();
         }
 
-        private string GetTranslationFromDictionary(SortedDictionary<string, string> dictionary, string key, string defaultValue)
+        private string GetTranslationFromDictionary(string section, string key, string defaultValue)
         {
-            if (!dictionary.ContainsKey(key))
-                dictionary.Add(key, defaultValue);
-            return dictionary[key];
+            if (!translationDictionary[section].ContainsKey(key))
+                translationDictionary[section].Add(key, defaultValue);
+            return translationDictionary[section][key];
         }
 
-        public string GetTranslatedTexture(string key, string defaultValue)
-            => GetTranslationFromDictionary(texturesDictionary, key, defaultValue);
+        #region Public dictionary access methods
 
-        public string GetTranslatedString(string key, string defaultValue) 
-            => GetTranslationFromDictionary(stringsDictionary, key, defaultValue);
+        public string GetTranslatedIniString(string key, string defaultValue)
+            => GetTranslationFromDictionary(INI_STRINGS, key, defaultValue);
+
+        public string GetTranslatedTexture(string key, string defaultValue)
+            => GetTranslationFromDictionary(TEXTURES, key, defaultValue);
 
         public string GetTranslatedGameOption(string key, string defaultValue) 
-            => GetTranslationFromDictionary(gameOptionsDictionary, key, defaultValue);
+            => GetTranslationFromDictionary(GAME_OPTIONS, key, defaultValue);
 
-        public string GetTranslatedSetting(string key, string defaultValue)
-            => GetTranslationFromDictionary(settingsDictionary, key, defaultValue);
-    }    
+        public string GetTranslatedGameMode(string key, string defaultValue)
+            => GetTranslationFromDictionary(GAME_MODES, key, defaultValue);
+
+        public string GetTranslatedSide(string key, string defaultValue)
+            => GetTranslationFromDictionary(SIDES, key, defaultValue);
+
+        public string GetTranslatedColor(string key, string defaultValue)
+            => GetTranslationFromDictionary(COLORS, key, defaultValue);
+
+        public string GetTranslatedMissionName(string key, string defaultValue)
+            => GetTranslationFromDictionary(MISSION_NAMES, key, defaultValue);
+
+        public string GetTranslatedMissionBriefing(string key, string defaultValue)
+            => GetTranslationFromDictionary(MISSION_BRIEFINGS, key, defaultValue);
+
+        public string GetTranslatedMapName(string key, string defaultValue)
+            => GetTranslationFromDictionary(MAP_NAMES, key, defaultValue);
+
+        public string GetTranslatedMapBriefing(string key, string defaultValue)
+            => GetTranslationFromDictionary(MAP_BRIEFINGS, key, defaultValue);
+
+        public string GetTranslatedCustomSetting(string key, string defaultValue)
+            => GetTranslationFromDictionary(CUSTOM_SETTINGS, key, defaultValue);
+
+        public string GetTranslatedCustomComponent(string key, string defaultValue)
+            => GetTranslationFromDictionary(CUSTOM_COMPONENTS, key, defaultValue);
+
+        #endregion
+    }
 }
