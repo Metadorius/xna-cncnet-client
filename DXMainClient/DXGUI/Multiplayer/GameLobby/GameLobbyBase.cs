@@ -303,7 +303,7 @@ namespace DTAClient.DXGUI.Multiplayer.GameLobby
                 chkBox.Name = chkName;
                 AddChild(chkBox);
                 chkBox.GetAttributes(GameOptionsIni);
-                chkBox.Text = Translation.Instance.GetTranslatedGameOption(chkName, chkBox.Text);
+                chkBox.Text = Translation.Instance.GetTranslatedGameOption(chkName + "_Text", chkBox.Text);
                 CheckBoxes.Add(chkBox);
                 chkBox.CheckedChanged += ChkBox_CheckedChanged;
             }
@@ -572,7 +572,7 @@ namespace DTAClient.DXGUI.Multiplayer.GameLobby
                 ddPlayerSide.ClientRectangle = new Rectangle(
                     ddPlayerName.Right + playerOptionHorizontalMargin,
                     ddPlayerName.Y, sideWidth, DROP_DOWN_HEIGHT);
-                ddPlayerSide.AddItem("Random", AssetLoader.LoadTexture("randomicon.png"));
+                ddPlayerSide.AddItem(Translation.General_Random, AssetLoader.LoadTexture("randomicon.png"));
                 foreach (string randomSelector in selectorNames)
                     ddPlayerSide.AddItem(randomSelector, AssetLoader.LoadTexture(randomSelector + "icon.png"));
                 foreach (string sideName in sides)

@@ -27,7 +27,10 @@ namespace ClientCore
 
         #region Static strings
 
+        public static string GameLobby_Spectator { get; set; } = "Spectator";
 
+        public static string General_Cancel { get; set; } = "Cancel";
+        public static string General_Random { get; set; } = "Random";
 
         #endregion
 
@@ -46,11 +49,6 @@ namespace ClientCore
                 Logger.Log($"Translation: Couldn't find {filename} translation file");
 
             translationIni = new IniFile(ProgramConstants.GetBaseResourcePath() + filename);
-
-            //foreach (var field in this.GetType().GetFields(BindingFlags.NonPublic | BindingFlags.Static))
-            //    if (field.IsLiteral && !field.IsInitOnly && field.FieldType == typeof(string))
-            //        translationDictionary.Add((string)field.GetValue(this),
-            //                                  new SortedDictionary<string, string>());
 
             foreach (string section in new string[] {INI_STRINGS, TEXTURES, GAME_OPTIONS, GAME_MODES, SIDES, COLORS,
                 MISSION_NAMES, MISSION_BRIEFINGS, MAP_NAMES, MAP_BRIEFINGS, CUSTOM_SETTINGS, CUSTOM_COMPONENTS})
@@ -75,18 +73,24 @@ namespace ClientCore
 
         private void LoadFromTranslationIni()
         {
-            // TODO add code-defined strings loading via reflection
+            foreach (var property in this.GetType().GetProperties(BindingFlags.Public | BindingFlags.Static))
+                if (property.PropertyType == typeof(string))
+                    property.SetValue(this, translationIni.GetStringValue(STATIC_STRINGS, property.Name, (string)property.GetValue(this, null)), null);
 
             foreach (string section in translationDictionary.Keys)
                 if (translationIni.SectionExists(section))
                     foreach (string key in translationIni.GetSectionKeys(section))
                         translationDictionary[section][key] = translationIni.GetStringValue(section, key, String.Empty);
-
         }
 
         public void GenerateTranslationIni()
         {
-            // TODO add code-defined strings writing via reflection
+            if (!translationIni.SectionExists(STATIC_STRINGS))
+                translationIni.AddSection(STATIC_STRINGS);
+
+            foreach (var property in this.GetType().GetProperties(BindingFlags.Public | BindingFlags.Static))
+                if (property.PropertyType == typeof(string))
+                    translationIni.SetStringValue(STATIC_STRINGS, property.Name, (string)property.GetValue(this, null));
 
             foreach (string section in translationDictionary.Keys)
             {
