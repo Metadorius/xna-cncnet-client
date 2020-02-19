@@ -389,12 +389,14 @@ namespace ClientCore
         {
             var translationSection = clientDefinitionsIni.GetSection("Translations");
             if (translationSection != null)
+            {
                 foreach (var key in translationSection.Keys)
                 {
                     string[] parts = key.Value.Split(',');
                     if (parts[0] == translationName)
                         return parts[1];
                 }
+            }
 
             return null;
         }

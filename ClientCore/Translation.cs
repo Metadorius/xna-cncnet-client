@@ -74,13 +74,19 @@ namespace ClientCore
         private void LoadFromTranslationIni()
         {
             foreach (var property in this.GetType().GetProperties(BindingFlags.Public | BindingFlags.Static))
+            {
                 if (property.PropertyType == typeof(string))
                     property.SetValue(this, translationIni.GetStringValue(STATIC_STRINGS, property.Name, (string)property.GetValue(this, null)), null);
+            }
 
             foreach (string section in translationDictionary.Keys)
+            {
                 if (translationIni.SectionExists(section))
+                {
                     foreach (string key in translationIni.GetSectionKeys(section))
                         translationDictionary[section][key] = translationIni.GetStringValue(section, key, String.Empty);
+                }
+            }
         }
 
         public void GenerateTranslationIni()
@@ -89,8 +95,10 @@ namespace ClientCore
                 translationIni.AddSection(STATIC_STRINGS);
 
             foreach (var property in this.GetType().GetProperties(BindingFlags.Public | BindingFlags.Static))
+            {
                 if (property.PropertyType == typeof(string))
                     translationIni.SetStringValue(STATIC_STRINGS, property.Name, (string)property.GetValue(this, null));
+            }
 
             foreach (string section in translationDictionary.Keys)
             {
