@@ -47,6 +47,9 @@ namespace DTAClient.DXGUI
             string primaryNativeCursorPath = ProgramConstants.GetResourcePath() + "cursor.cur";
             string alternativeNativeCursorPath = ProgramConstants.GetBaseResourcePath() + "cursor.cur";
 
+            string primaryLocalePath = ProgramConstants.GetResourcePath() + "Locale.ini";
+            string alternativeLocalePath = ProgramConstants.GetBaseResourcePath() + "Locale.ini";
+
             AssetLoader.Initialize(GraphicsDevice, content);
             AssetLoader.AssetSearchPaths.Add(ProgramConstants.GetResourcePath());
             AssetLoader.AssetSearchPaths.Add(ProgramConstants.GetBaseResourcePath());
@@ -120,6 +123,11 @@ namespace DTAClient.DXGUI
                 wm.Cursor.LoadNativeCursor(primaryNativeCursorPath);
             else if (File.Exists(alternativeNativeCursorPath))
                 wm.Cursor.LoadNativeCursor(alternativeNativeCursorPath);
+
+            if (File.Exists(primaryLocalePath))
+                LocaleProvider.Initialize(new IniFile(primaryLocalePath));
+            else
+                LocaleProvider.Initialize(new IniFile(alternativeLocalePath));
 
             Components.Add(wm);
 

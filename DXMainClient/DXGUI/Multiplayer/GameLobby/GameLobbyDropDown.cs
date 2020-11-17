@@ -73,6 +73,25 @@ namespace DTAClient.DXGUI.Multiplayer.GameLobby
             base.ParseAttributeFromINI(iniFile, key, value);
         }
 
+        public override void ParseLocalizedAttributes()
+        {
+            base.ParseLocalizedAttributes();
+
+            if (Items.Count == 0)
+                return;
+
+            ExtendedStringBuilder defaultLabels = new ExtendedStringBuilder(true, ',');
+
+            foreach (var item in Items)
+                defaultLabels.Append(item.Text);
+
+            string[] itemLabels = LocaleProvider.GetLocalizedAttributeValue(Parent?.Name, Name, "ItemLabels",
+                defaultLabels.ToString(), true).Split(',');
+
+            for (int i = 0; i < Items.Count; i++)
+                Items[i].Text = itemLabels[i];
+        }
+
         /// <summary>
         /// Applies the drop down's associated code to spawn.ini.
         /// </summary>

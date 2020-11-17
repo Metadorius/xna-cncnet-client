@@ -67,7 +67,6 @@ namespace ClientGUI
 
         private TimeSpan cursorTime = TimeSpan.Zero;
         
-
         private void MasterControl_MouseEnter(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(Text))
@@ -146,6 +145,11 @@ namespace ClientGUI
             Renderer.DrawString(Text, ClientConfiguration.Instance.ToolTipFontIndex,
                 new Vector2(X + ClientConfiguration.Instance.ToolTipMargin, Y + ClientConfiguration.Instance.ToolTipMargin),
                 UISettings.ActiveSettings.AltColor * Alpha, 1.0f);
+        }
+
+        public override void ParseLocalizedAttributes()
+        {
+            // Localized attributes will be handled by master control
         }
 
         private Point SumPoints(Point p1, Point p2)

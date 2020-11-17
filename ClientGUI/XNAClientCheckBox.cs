@@ -32,5 +32,14 @@ namespace ClientGUI
 
             base.ParseAttributeFromINI(iniFile, key, value);
         }
+
+        public override void ParseLocalizedAttributes()
+        {
+            base.ParseLocalizedAttributes();
+
+            string value = LocaleProvider.GetLocalizedAttributeValue(Parent?.Name, Name, nameof(ToolTip),
+                ToolTip?.Text?.Replace(Environment.NewLine, "@") ?? string.Empty, true);
+            ToolTip.Text = value?.Replace("@", Environment.NewLine) ?? string.Empty;
+        }
     }
 }

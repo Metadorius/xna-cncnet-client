@@ -102,6 +102,58 @@
             Creates a color based on a color string in the form "R,G,B,A". All values must be between 0 and 255.
             </summary>
         </member>
+        <member name="T:Rampastring.XNAUI.LocaleProvider">
+            <summary>
+            A static class that provides methods to allow
+            for easy localization of graphic components in a
+            centralized fashion.
+            </summary>
+        </member>
+        <member name="M:Rampastring.XNAUI.LocaleProvider.StringLocalized(System.String)">
+            <summary>
+            Checks if the localized string exists.
+            </summary>
+            <param name="key">The key to be looked up.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rampastring.XNAUI.LocaleProvider.AttributeLocalized(System.String,System.String,System.String)">
+            <summary>
+            Checks if the localized attribute value exists.
+            </summary>
+            <param name="parentName">The optional control parent name to be looked up.
+            Pass <c>null</c> if looking up a generic one.</param>
+            <param name="controlName">The control name to be looked up.</param>
+            <param name="attribute">The control attribute name to be looked up.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rampastring.XNAUI.LocaleProvider.GetLocalizedStringValue(System.String,System.String,System.Boolean)">
+            <summary>
+            Looks up localized string value that isn't attached
+            to any control (listbox entries, messages etc.)
+            </summary>
+            <param name="key">The key to be looked up.</param>
+            <param name="defaultValue">Value to return if it's not localized.</param>
+            <param name="memo">Whether to memorize the default value for stub locale file generation.</param>
+            <returns>A localized string value or <paramref name="defaultValue"/>.</returns>
+        </member>
+        <member name="M:Rampastring.XNAUI.LocaleProvider.GetLocalizedAttributeValue(System.String,System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Looks up localized attribute value that is attached
+            to a control, with or without accounting for control parent.
+            </summary>
+            <param name="parentName">The optional control parent name to be looked up.
+            Pass <c>null</c> if looking up a generic one.</param>
+            <param name="controlName">The control name to be looked up.</param>
+            <param name="attribute">The control attribute name to be looked up.</param>
+            <param name="defaultValue">Value to return if it's not localized.</param>
+            <param name="memo">Whether to memorize the default value for stub locale file generation.</param>
+            <returns>A localized string value or <paramref name="defaultValue"/>.</returns>
+        </member>
+        <member name="M:Rampastring.XNAUI.LocaleProvider.GenerateLocaleIni">
+            <summary>
+            Writes stub locale INI file with hardcoded values for translators.
+            </summary>
+        </member>
         <member name="T:Rampastring.XNAUI.GUICreator">
             <summary>
             Allows creating controls based on their internal names with the help 
@@ -581,6 +633,20 @@
             The end character index of the visible part of the text string.
             </summary>
         </member>
+        <member name="P:Rampastring.XNAUI.XNAControls.XNATextBox.PreviousControl">
+            <summary>
+            The control to switch selection state to when
+            the user presses Tab while holding Shift.
+            See also <see cref="P:Rampastring.XNAUI.XNAControls.XNATextBox.NextControl"/>.
+            </summary>
+        </member>
+        <member name="P:Rampastring.XNAUI.XNAControls.XNATextBox.NextControl">
+            <summary>
+            The control to switch selection state to when
+            the user presses Tab without holding Shift.
+            See also <see cref="P:Rampastring.XNAUI.XNAControls.XNATextBox.PreviousControl"/>.
+            </summary>
+        </member>
         <member name="M:Rampastring.XNAUI.XNAControls.XNATextBox.Initialize">
             <summary>
             Initializes the text box.
@@ -596,6 +662,7 @@
             <summary>
             Handles a key press while the text box is the selected control.
             Can be overridden in derived classes to handle additional key presses.
+            Returns true if the key was handled.
             </summary>
             <param name="key">The key that was pressed.</param>
         </member>
@@ -1250,6 +1317,12 @@
         <member name="M:Rampastring.XNAUI.XNAControls.XNAControl.Initialize">
             <summary>
             Initializes the control.
+            </summary>
+        </member>
+        <member name="M:Rampastring.XNAUI.XNAControls.XNAControl.ParseLocalizedAttributes">
+            <summary>
+            Looks up and sets a localized
+            value for every applicable attribute.
             </summary>
         </member>
         <member name="M:Rampastring.XNAUI.XNAControls.XNAControl.Disable">

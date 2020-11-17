@@ -531,6 +531,9 @@ namespace DTAClient.DXGUI.Generic
                     lblUpdateStatus.Text = "Click to check for updates.";
             }
 
+            //if (UserINISettings.Instance.GenerateLocaleIni)
+                LocaleProvider.GenerateLocaleIni();
+
             CheckRequiredFiles();
             CheckForbiddenFiles();
             CheckIfFirstRun();

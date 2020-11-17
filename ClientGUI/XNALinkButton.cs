@@ -17,13 +17,13 @@ namespace ClientGUI
 
         public string URL { get; set; }
 
-        private ToolTip toolTip;
+        public ToolTip ToolTip { get; set; }
 
         public override void Initialize()
         {
             base.Initialize();
 
-            toolTip = new ToolTip(WindowManager, this);
+            ToolTip = new ToolTip(WindowManager, this);
         }
 
         public override void ParseAttributeFromINI(IniFile iniFile, string key, string value)
@@ -35,11 +35,20 @@ namespace ClientGUI
             }
             else if (key == "ToolTip")
             {
-                toolTip.Text = value.Replace("@", Environment.NewLine);
+                ToolTip.Text = value.Replace("@", Environment.NewLine);
                 return;
             }
 
             base.ParseAttributeFromINI(iniFile, key, value);
+        }
+
+        public override void ParseLocalizedAttributes()
+        {
+            base.ParseLocalizedAttributes();
+
+            string value = LocaleProvider.GetLocalizedAttributeValue(Parent?.Name, Name, nameof(ToolTip),
+                ToolTip?.Text?.Replace(Environment.NewLine, "@") ?? string.Empty, true);
+            ToolTip.Text = value?.Replace("@", Environment.NewLine) ?? string.Empty;
         }
 
         public override void OnLeftClick()
