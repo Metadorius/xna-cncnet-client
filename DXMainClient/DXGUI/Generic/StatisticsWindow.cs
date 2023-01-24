@@ -402,10 +402,8 @@ namespace DTAClient.DXGUI.Generic
 
             CenterOnParent();
 
-#pragma warning disable CNCNET0001 // L10N Failure
-            sides = ClientConfiguration.Instance.Sides.Split(',')
-                .Select(s => (Name: s, UIName: s.L10N($"INI:Sides:{s}"))).ToArray();
-#pragma warning restore CNCNET0001 // L10N Failure
+            // don't call L10N here since they only determine filenames
+            sides = ClientConfiguration.Instance.Sides.Split(',').Select(s => (Name: s, UIName: s)).ToArray();
 
             sideTextures = new Texture2D[sides.Length + 1];
             for (int i = 0; i < sides.Length; i++)
